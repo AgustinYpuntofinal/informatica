@@ -1,0 +1,16 @@
+/*selector de etiqueta*/
+h1{
+    color:blue;
+}
+h2{
+    color: crimson;
+}
+/*selector de clase*/
+.oscuro {
+    background-color: black;
+    color: white;
+}
+/*selector de ID*/
+#p1{
+    color: green;
+}
