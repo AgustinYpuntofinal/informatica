@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Juego de Adivinanza</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: #f7f7f7;
+    }
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      max-width: 540px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 0;
+    }
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      width: 80px;
+      text-align: center;
+      margin-right: 10px;
+    }
+    button {
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #007bff;
+      color: white;
+      border: none;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #resultado {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🎯 Juego de Adivinanza</h1>
+    <p>Adivina el número secreto (entre 1 y 100)</p>
+
+    <input type="number" id="intento" min="1" max="100" />
+    <button id="adivinarBtn">Adivinar</button>
+    <button id="reiniciarBtn" style="display:none;">Reiniciar</button>
+
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    let numeroSecreto = Math.floor(Math.random() * 100) + 1;
+    let intentos = 0;
+
+    const intentoInput = document.getElementById('intento');
+    const resultadoDiv = document.getElementById('resultado');
+    const adivinarBtn = document.getElementById('adivinarBtn');
+    const reiniciarBtn = document.getElementById('reiniciarBtn');
+
+    adivinarBtn.addEventListener('click', () => {
+      const numero = parseInt(intentoInput.value);
+      if (isNaN(numero) || numero < 1 || numero > 100) {
+        resultadoDiv.textContent = '⚠️ Ingresa un número válido entre 1 y 100.';
+        return;
+      }
+
+      intentos++;
+
+      if (numero === numeroSecreto) {
+        resultadoDiv.textContent = `🎉 ¡Correcto! El número era ${numeroSecreto}. Lo lograste en ${intentos} intentos.`;
+        adivinarBtn.style.display = 'none';
+        reiniciarBtn.style.display = 'inline-block';
+      } else if (numero < numeroSecreto) {
+        resultadoDiv.textContent = '🔼 El número secreto es mayor.';
+      } else {
+        resultadoDiv.textContent = '🔽 El número secreto es menor.';
+      }
+    });
+
+    reiniciarBtn.addEventListener('click', () => {
+      numeroSecreto = Math.floor(Math.random() * 100) + 1;
+      intentos = 0;
+      resultadoDiv.textContent = '';
+      intentoInput.value = '';
+      adivinarBtn.style.display = 'inline-block';
+      reiniciarBtn.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
