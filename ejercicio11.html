@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de IMC</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .contenedor {
+      background-color: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    input {
+      margin: 8px 0;
+      padding: 8px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #resultado {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contenedor">
+    <h1>Calculadora de IMC</h1>
+    <label for="peso">Peso (kg):</label>
+    <input type="number" id="peso" step="0.1" placeholder="Ej: 70">
+
+    <label for="altura">Altura (m):</label>
+    <input type="number" id="altura" step="0.01" placeholder="Ej: 1.75">
+
+    <button onclick="calcularIMC()">Calcular IMC</button>
+
+    <p id="resultado"></p>
+  </div>
+
+  <script>
+    function calcularIMC() {
+      const peso = parseFloat(document.getElementById("peso").value);
+      const altura = parseFloat(document.getElementById("altura").value);
+      const resultado = document.getElementById("resultado");
+
+      if (isNaN(peso) || isNaN(altura) || altura <= 0) {
+        resultado.textContent = "Por favor, ingresá valores válidos.";
+        return;
+      }
+
+      const imc = peso / (altura * altura);
+      let interpretacion = "";
+
+      if (imc < 18.5) {
+        interpretacion = "Bajo peso";
+      } else if (imc < 25) {
+        interpretacion = "Peso normal";
+      } else if (imc < 30) {
+        interpretacion = "Sobrepeso";
+      } else {
+        interpretacion = "Obesidad";
+      }
+
+      resultado.textContent = `Tu IMC es: ${imc.toFixed(1)} (${interpretacion})`;
+    }
+  </script>
+
+</body>
+</html>
